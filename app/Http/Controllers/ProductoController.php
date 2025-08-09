@@ -128,14 +128,67 @@ class ProductoController extends Controller
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
             'categoria' => 'required|string|max:100',
+            'imagen_url_principal' => 'nullable|url|max:2048',
+            'imagen_url_principal_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
+
+            'variantes' => 'required|array|min:1',
+            'variantes.*.sku' => 'nullable|string|max:100',
+            'variantes.*.precio' => 'required|numeric|min:0',
+            'variantes.*.stock' => 'required|integer|min:0',
+            'variantes.*.atributos' => 'nullable|array',
+            'variantes.*.imagen_url' => 'nullable|url|max:2048',
+            'variantes.*.imagen_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
         ]);
 
-        $producto = Producto::findOrFail($id);
-        $producto->update($request->only(['nombre', 'descripcion', 'categoria']));
+        $producto = Producto::with('variantes')->findOrFail($id);
 
-        // TODO: sync variants here if needed
+        DB::beginTransaction();
 
-        return redirect()->route('productos.index')->with('success', 'Producto actualizado exitosamente.');
+        try {
+            $path_principal = $producto->imagen_url_principal;
+            if ($request->hasFile('imagen_url_principal_file')) {
+                if ($path_principal && Storage::disk('public')->exists($path_principal)) {
+                    Storage::disk('public')->delete($path_principal);
+                }
+                $path_principal = $request->file('imagen_url_principal_file')->store('productos', 'public');
+            } elseif ($request->filled('imagen_url_principal')) {
+                $path_principal = $request->input('imagen_url_principal');
+            }
+
+            $producto->update([
+                'nombre' => $request->nombre,
+                'descripcion' => $request->descripcion,
+                'categoria' => $request->categoria,
+                'imagen_url_principal' => $path_principal,
+            ]);
+
+            $producto->variantes()->delete();
+            foreach ($request->variantes as $varianteData) {
+                $atributos = $varianteData['atributos'] ?? [];
+
+                $imagenVariante = null;
+                if (!empty($varianteData['imagen_file'])) {
+                    $imagenVariante = $varianteData['imagen_file']->store('productos/variantes', 'public');
+                } elseif (!empty($varianteData['imagen_url'])) {
+                    $imagenVariante = $varianteData['imagen_url'];
+                }
+
+                VarianteProducto::create([
+                    'producto_id' => $producto->id,
+                    'sku' => $varianteData['sku'] ?? null,
+                    'precio' => $varianteData['precio'],
+                    'stock' => $varianteData['stock'],
+                    'atributos' => $atributos,
+                    'imagen_url' => $imagenVariante,
+                ]);
+            }
+
+            DB::commit();
+            return redirect()->route('productos.index')->with('success', 'Producto actualizado exitosamente.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Error al actualizar el producto: ' . $e->getMessage());
+        }
     }
 
     public function destroy($id)
