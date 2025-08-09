@@ -33,8 +33,8 @@
 
     <!-- Botón Administrar Unidades (rojo con animación) -->
     <div class="mt-6">
-        <a href="/trucks" class="inline-flex items-center px-4 py-2 bg-red-600 text-white font-semibold text-sm rounded-lg hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-300 ease-in-out transform hover:scale-105">
-            Administrar Unidades
+        <a href="{{ route('productos.index') }}" class="inline-flex items-center px-4 py-2 bg-red-600 text-white font-semibold text-sm rounded-lg hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-300 ease-in-out transform hover:scale-105">
+            Administrar Productos
         </a>
     </div>
 </div>

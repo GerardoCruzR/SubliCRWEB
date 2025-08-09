@@ -13,8 +13,14 @@
                 <!-- Navegación -->
                 <div class="d-flex">
                     <!-- Primera dirección -->
-                    <a href="{{ url('/trucks') }}" class="nav-link-custom mx-3">
-                        Unidades
+                    <a href="{{ route('productos.index') }}" class="nav-link-custom mx-3">
+                        Productos
+                    </a>
+                    <a href="{{ route('productos.create') }}" class="nav-link-custom mx-3">
+                        Nuevo producto
+                    </a>
+                    <a href="{{ route('catalogo.publico') }}" class="nav-link-custom mx-3">
+                        Ver catálogo
                     </a>
 
                     <!-- Segunda dirección -->
@@ -211,9 +217,9 @@
     <!-- Menú de Navegación Responsivo -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('trucks.index') }}" :active="request()->routeIs('trucks.index')"
+            <x-responsive-nav-link href="{{ route('productos.index') }}" :active="request()->routeIs('productos.index')"
                 class="text-black hover:text-red-500">
-                {{ __('Camiones') }}
+                {{ __('Productos') }}
             </x-responsive-nav-link>
         </div>
 
