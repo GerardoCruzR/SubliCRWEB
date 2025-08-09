@@ -24,6 +24,8 @@ Route::middleware([
 ])->group(function () {
     // Rutas para el controlador Truck
     Route::resource('trucks', TruckController::class); // CRUD completo para la entidad 'Truck'
+    // Rutas de administración para productos
+    Route::resource('products', ProductoController::class)->except(['show']);
 });
 
 // Ruta para mostrar detalles de una unidad específica
@@ -86,7 +88,6 @@ Route::delete('/filtros/{id}', [FiltroController2::class, 'destroy'])->name('fil
 // Ruta para obtener los tipos de filtros por sección vía AJAX
 Route::get('/get-tipos/{seccion}', [FiltroController2::class, 'getTiposBySeccion']);
 
-
 Route::get('/catalogo', [TruckController::class, 'showPublicList'])->name('trucks.public');
 Route::get('/filtros', [FiltroController::class, 'index'])->name('filtros.index');
 Route::get('/filtros/create', [FiltroController::class, 'create'])->name('filtros.create');
@@ -95,10 +96,8 @@ Route::get('/filtros/{id}/edit', [FiltroController::class, 'edit'])->name('filtr
 Route::patch('/filtros/{id}', [FiltroController::class, 'update'])->name('filtros.update');
 Route::delete('/filtros/{id}', [FiltroController::class, 'destroy'])->name('filtros.destroy');
 Route::get('/get-tipos-by-seccion', [FiltroController::class, 'getTiposBySeccion']);
-Route::get('/', [ProductoController::class, 'showPublicList'])->name('catalogo.publico');
-Route::resource('productos', ProductoController::class);
+
+// Catálogo público de productos
 Route::get('/', [ProductoController::class, 'showPublicList'])->name('catalogo.publico');
 Route::get('/catalogo', [ProductoController::class, 'showPublicList'])->name('catalogo.publico');
-
-Route::resource('productos', ProductoController::class)->except(['show']);
 Route::get('productos/{id}', [ProductoController::class, 'show'])->name('productos.show');
