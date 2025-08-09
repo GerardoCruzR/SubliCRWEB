@@ -32,7 +32,7 @@ class ProductoController extends Controller
             ->orderByDesc('id')
             ->paginate(10);
 
-        return view('productos.index', compact('productos'));
+        return view('products.index', compact('productos'));
     }
 
     /**
@@ -40,7 +40,7 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        return view('productos.create');
+        return view('products.create');
     }
 
     /**
@@ -103,7 +103,7 @@ class ProductoController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('productos.index')->with('success', 'Producto creado exitosamente.');
+            return redirect()->route('products.index')->with('success', 'Producto creado exitosamente.');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Error al crear el producto: ' . $e->getMessage());
@@ -113,13 +113,13 @@ class ProductoController extends Controller
     public function show($id)
     {
         $producto = Producto::with('variantes')->findOrFail($id);
-        return view('productos.show', compact('producto'));
+        return view('products.show', compact('producto'));
     }
 
     public function edit($id)
     {
         $producto = Producto::with('variantes')->findOrFail($id);
-        return view('productos.edit', compact('producto'));
+        return view('products.edit', compact('producto'));
     }
 
     public function update(Request $request, $id)
@@ -135,7 +135,7 @@ class ProductoController extends Controller
 
         // TODO: sync variants here if needed
 
-        return redirect()->route('productos.index')->with('success', 'Producto actualizado exitosamente.');
+        return redirect()->route('products.index')->with('success', 'Producto actualizado exitosamente.');
     }
 
     public function destroy($id)
@@ -148,6 +148,6 @@ class ProductoController extends Controller
 
         $producto->delete();
 
-        return redirect()->route('productos.index')->with('success', 'Producto eliminado exitosamente.');
+        return redirect()->route('products.index')->with('success', 'Producto eliminado exitosamente.');
     }
 }
