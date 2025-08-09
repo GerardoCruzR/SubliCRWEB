@@ -1,0 +1,276 @@
+
+
+/*nav*/
+/* Estilo para el borde rojo del botón de menú hamburguesa */
+.navbar-toggler-custom {
+    border: 2px solid red;
+    border-radius: 0.25rem;
+}
+
+/* Estilo adicional para el ícono del menú hamburguesa */
+.navbar-toggler-custom .navbar-toggler-icon {
+    background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"%3E%3Cpath stroke="%23d3d3d3" stroke-width="2" d="M5 7h20M5 15h20M5 23h20"/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 1.5em 1.5em;
+    width: 1.5em;
+    height: 1.5em;
+}
+
+/* Estilo para centrar el logo en vista grande */
+@media (min-width: 992px) {
+    .navbar-brand {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        /* Ajuste adicional para asegurarse de que el logo esté en el centro */
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .navbar-collapse {
+        display: flex;
+        justify-content: flex-end; /* Ajusta el menú a la derecha */
+    }
+}
+.no-select {
+    user-select: none; /* Evita la selección de texto */
+    pointer-events: none; /* Deshabilita la interacción del mouse */
+    -webkit-user-drag: none; /* Evita el arrastre en navegadores WebKit */
+}
+
+
+/*fin nav*/
+.hero-section {
+    text-align: center;
+    padding: 50px 20px;
+}
+h1 {
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 700; /* Establecer el peso bold */
+}
+h3 {
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 700; /* Establecer el peso bold */
+}
+h2 {
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 700; /* Establecer el peso bold */
+}
+.text1 {
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 700!important; /* Aplicar el peso SemiBold */
+}
+p {
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 400 !important; /* Fuerza el peso ExtraLight */
+}
+
+.hero-section h1 {
+    color: #d4423f;
+    font-weight: bold;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.truck-image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px; /* Opcional: para esquinas redondeadas */
+}
+
+.finance-section {
+    font-weight: bold;
+    color: #d32f2f;
+    margin-top: 20px;
+}
+
+
+/*lineas code*/
+.finance-section {
+    text-align: center;
+    margin-top: 40px;
+    position: relative;
+}
+
+.finance-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.line-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+}
+
+.red-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Estilos escalonados para cada línea */
+/* Estilos generales */
+.line {
+    height: 5px;
+    background-color: #d32f2f; /* Color rojo */
+}
+
+/* Estilos escalonados para las líneas del lado izquierdo */
+.left-lines .line1 {
+    width: 40px; /* Línea superior - más larga */
+    height: 10px;
+    align-self: flex-end;
+}
+
+.left-lines .line2 {
+    width: 30px; /* Línea del medio - mediana */
+    height: 10px;
+    align-self: flex-end;
+}
+
+.left-lines .line3 {
+    width: 20px; /* Línea inferior - más corta */
+    height: 10px;
+    align-self: flex-end;
+}
+
+/* Estilos escalonados para las líneas del lado derecho */
+.right-lines .line1 {
+    width: 40px; /* Línea superior - más larga */
+    height: 10px;
+}
+
+.right-lines .line2 {
+    width: 30px; /* Línea del medio - mediana */
+    height: 10px;
+}
+
+.right-lines .line3 {
+    width: 20px; /* Línea inferior - más corta */
+    height: 10px;
+}
+
+/* Estilos generales para la sección y contenedores */
+.finance-section {
+    text-align: center;
+    margin-top: 40px;
+    position: relative;
+}
+
+.finance-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.line-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 15px;
+    margin-top: -40px;
+}
+
+.red-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Estilo de la línea inferior */
+.bottom-line {
+    height: 2px;
+    width: 40%;
+    background-color: #d32f2f; /* Color rojo */
+    margin: -20px auto 0;
+}
+
+@media (max-width: 768px) {
+    .bottom-line {
+        display: none; /* Oculta la línea inferior en pantallas pequeñas */
+    }
+}
+
+.text1{
+    color: black;
+}
+
+
+/*lienas*/
+
+
+
+/* footer */
+.footer {
+    background-color: #000;
+    color: #fff;
+    padding: 20px 0;
+}
+
+.footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.footer .copyright {
+    text-align: center;
+    padding-top: 50px;
+    border-top: 1px solid #444;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    font-size: 14px;
+}
+
+.footer .contact-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px; /* Espacio entre los elementos */
+}
+
+.footer .contact-item {
+    display: flex;
+    align-items: center;
+}
+
+.footer .contact-item i {
+    margin-right: 10px;
+    font-size: 1.2rem; /* Tamaño del ícono */
+    line-height: 1; /* Ajusta la alineación vertical */
+    vertical-align: middle; /* Alinea verticalmente el ícono */
+}
+
+.footer .contact-item p {
+    margin-bottom: 0;
+    line-height: 1.5; /* Ajusta el espaciado vertical del texto */
+}
+
+.footer .brand-section h5 {
+    margin-top: 20px; /* Margen superior */
+    margin-bottom: 35px; /* Margen inferior */
+}
+
+.footter .copyright{
+    margin-bottom: 5px; /* Margen inferior */
+}
+
+.col-12.mb-3 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+
+    /*fin footer*/
