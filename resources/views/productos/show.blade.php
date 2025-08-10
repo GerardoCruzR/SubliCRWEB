@@ -35,8 +35,13 @@
                                     <td class="px-4 py-2">{{ money_mx($v->precio) }}</td>
                                     <td class="px-4 py-2">{{ $v->stock }}</td>
                                     <td class="px-4 py-2">
-                                        @php $attrs = collect($v->atributos); @endphp
-                    {{ $attrs->filter()->map(fn($val,$key) => $key . ': ' . $val)->implode(', ') }}
+                                        @php
+                                            $pairs = [];
+                                            foreach (collect($v->atributos)->filter() as $key => $val) {
+                                                $pairs[] = $key . ': ' . $val;
+                                            }
+                                        @endphp
+                                        {{ implode(', ', $pairs) }}
                                     </td>
                                 </tr>
                             @endforeach

@@ -48,8 +48,8 @@
     <div class="product-grid">
         @forelse ($productos as $producto)
             @php
-                $precio = $producto->precio_desde ?? optional($producto->variantes->first())->precio;
-                $img = $producto->imagen_publica; // helper del modelo
+                $precio = $producto->precio_desde;
+                $img = $producto->imagen_publica;
                 $capacidad = $producto->capacidad;
                 $talla = $producto->talla;
                 $colores = $producto->colores;

@@ -36,6 +36,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-secondary fw-bold" href="{{ route('cajas.en.venta') }}">Cajas en venta</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary fw-bold" href="{{ route('catalogo.publico') }}">Catálogo</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
