@@ -1,15 +1,23 @@
 <?php
 
-use App\Http\Controllers\TruckController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\TruckController;
 use App\Http\Controllers\UnidadesController;
 use App\Http\Controllers\CajaController;
 use App\Http\Controllers\FiltroController;
 use App\Http\Controllers\FiltroController2;
-use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\AboutController;
 
+// Home
 Route::get('/', fn () => view('welcome'))->name('home');
+
+// Catálogo público
+Route::get('/catalogo', [ProductoController::class, 'showPublicList'])->name('catalogo.publico');
+
+// CRUD Productos (admin)
+Route::resource('productos', ProductoController::class)->except(['show']);
+Route::get('productos/{id}', [ProductoController::class, 'show'])->name('productos.show');
 
 Route::get('/about-us', [AboutController::class, 'show'])->name('about-us');
 
@@ -44,7 +52,3 @@ Route::put('/filtros/{id}', [FiltroController2::class, 'update'])->name('filtros
 Route::delete('/filtros/{id}', [FiltroController2::class, 'destroy'])->name('filtros.destroy');
 Route::get('/get-tipos/{seccion}', [FiltroController2::class, 'getTiposBySeccion']);
 Route::get('/get-tipos-by-seccion', [FiltroController::class, 'getTiposBySeccion']);
-
-Route::get('/catalogo', [ProductoController::class, 'showPublicList'])->name('catalogo.publico');
-Route::resource('productos', ProductoController::class)->except(['show']);
-Route::get('productos/{id}', [ProductoController::class, 'show'])->name('productos.show');

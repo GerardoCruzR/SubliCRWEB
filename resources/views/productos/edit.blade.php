@@ -26,13 +26,8 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Imagen principal (archivo)</label>
-                        <input type="file" name="imagen_url_principal_file" class="mt-1 block w-full" />
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Imagen principal (URL)</label>
-                        <input type="text" name="imagen_url_principal" value="{{ old('imagen_url_principal', $producto->imagen_url_principal) }}" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Imagen principal</label>
+                        <input type="file" name="imagen_url_principal" class="mt-1 block w-full" />
                     </div>
 
                     <h3 class="text-lg font-semibold mb-2">Variantes</h3>
@@ -64,10 +59,6 @@
                                     <input type="text" name="variantes[{{ $i }}][atributos][capacidad]" value="{{ old('variantes.' . $i . '.atributos.capacidad', data_get($v->atributos, 'capacidad')) }}" class="mt-1 w-full border-gray-300 rounded-md" />
                                 </div>
                                 <div class="mb-2">
-                                    <label class="block text-sm">Imagen (archivo)</label>
-                                    <input type="file" name="variantes[{{ $i }}][imagen_file]" class="mt-1 w-full" />
-                                </div>
-                                <div class="mb-2">
                                     <label class="block text-sm">Imagen (URL)</label>
                                     <input type="text" name="variantes[{{ $i }}][imagen_url]" value="{{ old('variantes.' . $i . '.imagen_url', $v->imagen_url) }}" class="mt-1 w-full border-gray-300 rounded-md" />
                                 </div>
@@ -76,7 +67,8 @@
                     </div>
                     <button type="button" onclick="addVariant()" class="mb-4 px-4 py-2 bg-gray-600 text-white rounded">Agregar variante</button>
 
-                    <div class="flex justify-end">
+                    <div class="flex justify-end space-x-2">
+                        <a href="{{ route('productos.index') }}" class="px-4 py-2 bg-gray-500 text-white rounded">Cancelar</a>
                         <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded">Actualizar</button>
                     </div>
                 </form>

@@ -18,7 +18,7 @@ class ProductoController extends Controller
         // Order by existing column (id) instead of created_at
         $productos = Producto::with('variantes')
             ->orderByDesc('id')
-            ->paginate(9);
+            ->paginate(10);
 
         return view('public-list', compact('productos'));
     }
@@ -52,8 +52,7 @@ class ProductoController extends Controller
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
             'categoria' => 'required|string|max:100',
-            'imagen_url_principal' => 'nullable|url|max:2048',
-            'imagen_url_principal_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
+            'imagen_url_principal' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
 
             'variantes' => 'required|array|min:1',
             'variantes.*.sku' => 'nullable|string|max:100',
@@ -61,18 +60,15 @@ class ProductoController extends Controller
             'variantes.*.stock' => 'required|integer|min:0',
             'variantes.*.atributos' => 'nullable|array',
             'variantes.*.imagen_url' => 'nullable|url|max:2048',
-            'variantes.*.imagen_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
         ]);
 
         DB::beginTransaction();
 
         try {
-            // Main image: file or URL
+            // Imagen principal
             $path_principal = null;
-            if ($request->hasFile('imagen_url_principal_file')) {
-                $path_principal = $request->file('imagen_url_principal_file')->store('productos', 'public');
-            } elseif ($request->filled('imagen_url_principal')) {
-                $path_principal = $request->input('imagen_url_principal');
+            if ($request->hasFile('imagen_url_principal')) {
+                $path_principal = $request->file('imagen_url_principal')->store('productos', 'public');
             }
 
             $producto = Producto::create([
@@ -86,9 +82,7 @@ class ProductoController extends Controller
                 $atributos = $varianteData['atributos'] ?? [];
 
                 $imagenVariante = null;
-                if (!empty($varianteData['imagen_file'])) {
-                    $imagenVariante = $varianteData['imagen_file']->store('productos/variantes', 'public');
-                } elseif (!empty($varianteData['imagen_url'])) {
+                if (!empty($varianteData['imagen_url'])) {
                     $imagenVariante = $varianteData['imagen_url'];
                 }
 
@@ -128,8 +122,7 @@ class ProductoController extends Controller
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
             'categoria' => 'required|string|max:100',
-            'imagen_url_principal' => 'nullable|url|max:2048',
-            'imagen_url_principal_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
+            'imagen_url_principal' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
 
             'variantes' => 'required|array|min:1',
             'variantes.*.sku' => 'nullable|string|max:100',
@@ -137,7 +130,6 @@ class ProductoController extends Controller
             'variantes.*.stock' => 'required|integer|min:0',
             'variantes.*.atributos' => 'nullable|array',
             'variantes.*.imagen_url' => 'nullable|url|max:2048',
-            'variantes.*.imagen_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
         ]);
 
         $producto = Producto::with('variantes')->findOrFail($id);
@@ -146,13 +138,11 @@ class ProductoController extends Controller
 
         try {
             $path_principal = $producto->imagen_url_principal;
-            if ($request->hasFile('imagen_url_principal_file')) {
+            if ($request->hasFile('imagen_url_principal')) {
                 if ($path_principal && Storage::disk('public')->exists($path_principal)) {
                     Storage::disk('public')->delete($path_principal);
                 }
-                $path_principal = $request->file('imagen_url_principal_file')->store('productos', 'public');
-            } elseif ($request->filled('imagen_url_principal')) {
-                $path_principal = $request->input('imagen_url_principal');
+                $path_principal = $request->file('imagen_url_principal')->store('productos', 'public');
             }
 
             $producto->update([
@@ -167,9 +157,7 @@ class ProductoController extends Controller
                 $atributos = $varianteData['atributos'] ?? [];
 
                 $imagenVariante = null;
-                if (!empty($varianteData['imagen_file'])) {
-                    $imagenVariante = $varianteData['imagen_file']->store('productos/variantes', 'public');
-                } elseif (!empty($varianteData['imagen_url'])) {
+                if (!empty($varianteData['imagen_url'])) {
                     $imagenVariante = $varianteData['imagen_url'];
                 }
 

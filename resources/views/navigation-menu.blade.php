@@ -13,15 +13,12 @@
                 <!-- Navegación -->
                 <div class="d-flex">
                     <!-- Primera dirección -->
-                    <a href="{{ route('productos.index') }}" class="nav-link-custom mx-3">
+                    <x-nav-link :href="route('productos.index')" :active="request()->routeIs('productos.*')" class="nav-link-custom mx-3">
                         Productos
-                    </a>
-                    <a href="{{ route('productos.create') }}" class="nav-link-custom mx-3">
-                        Nuevo producto
-                    </a>
-                    <a href="{{ route('catalogo.publico') }}" class="nav-link-custom mx-3">
-                        Ver catálogo
-                    </a>
+                    </x-nav-link>
+                    <x-nav-link :href="route('catalogo.publico')" :active="request()->is('catalogo')" class="nav-link-custom mx-3">
+                        Catálogo
+                    </x-nav-link>
 
                     <!-- Segunda dirección -->
                     <a href="{{ url('/cajas') }}" class="nav-link-custom mx-3">
@@ -217,9 +214,13 @@
     <!-- Menú de Navegación Responsivo -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('productos.index') }}" :active="request()->routeIs('productos.index')"
+            <x-responsive-nav-link href="{{ route('productos.index') }}" :active="request()->routeIs('productos.*')"
                 class="text-black hover:text-red-500">
                 {{ __('Productos') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('catalogo.publico') }}" :active="request()->is('catalogo')"
+                class="text-black hover:text-red-500">
+                {{ __('Catálogo') }}
             </x-responsive-nav-link>
         </div>
 
